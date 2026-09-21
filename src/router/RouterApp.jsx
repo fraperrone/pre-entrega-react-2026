@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Layout from '../layout/Layout'
 import ItemlistContainer from '../components/ItemlistContainer'
 import Carrito from '../components/Cart'
+import ItemDetails from '../components/ItemDetails'
 
 export default function RouterApp() {
   return (
@@ -11,7 +12,7 @@ export default function RouterApp() {
           <Route index element={<h1>Home</h1>} />
           <Route path="/productos" element={<ItemlistContainer />} />
           {/* ruta producto por id */}
-          <Route path="/productos/:id" element={<h1>Producto por ID</h1>} />
+          <Route path="/productos/:id" element={<ItemDetails></ItemDetails>} />
           <Route path="/carrito" element={<Carrito />} />
         </Route>
       </Routes>
