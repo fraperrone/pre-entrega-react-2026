@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Layout from '../layout/Layout'
 import ItemlistContainer from '../components/ItemlistContainer'
+import Carrito from '../components/Cart'
 
 export default function RouterApp() {
   return (
@@ -11,7 +12,7 @@ export default function RouterApp() {
           <Route path="/productos" element={<ItemlistContainer />} />
           {/* ruta producto por id */}
           <Route path="/productos/:id" element={<h1>Producto por ID</h1>} />
-          <Route path="/carrito" element={<h1>Carrito</h1>} />
+          <Route path="/carrito" element={<Carrito />} />
         </Route>
       </Routes>
   )
