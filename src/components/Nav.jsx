@@ -1,5 +1,5 @@
 
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import CartWidget from "./CartWidget";
 
 
@@ -7,10 +7,10 @@ export default function Nav() {
     return (
         <nav>
             <ul>
-                <li><Link to="/">Home</Link></li>
-                <li><Link to="/productos">Productos</Link></li>
-                <li><Link to="/carrito">Carrito</Link></li>
-                <li><Link to="/producto/:id"></Link></li>
+                <li><NavLink to="/">Home</NavLink></li>
+                <li><NavLink to="/productos">Productos</NavLink></li>
+                <li><NavLink to="/carrito">Carrito</NavLink></li>
+                <li><NavLink to="/producto/:id"></NavLink></li>
                 <li><CartWidget></CartWidget></li>
             </ul>
         </nav>

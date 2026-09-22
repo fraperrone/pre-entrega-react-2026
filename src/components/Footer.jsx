@@ -22,7 +22,7 @@ export default function Footer() {
     ]
 
     return (
-        <footer className="footer">
+        <footer className="bg-dark text-white text-center py-4 mt-5 w-100">
             {/* informacion de la empresa (ficticia) */}
             <p>© 2024 My Website. All rights reserved.</p>
             <p>Contact us at info@mywebsite.com</p>
