@@ -1,18 +1,47 @@
-
-import { Link, NavLink } from "react-router-dom";
-import CartWidget from "./CartWidget";
-
+import { NavLink } from 'react-router-dom'
+import CartWidget from './CartWidget'
 
 export default function Nav() {
-    return (
-        <nav>
-            <ul>
-                <li><NavLink to="/">Home</NavLink></li>
-                <li><NavLink to="/productos">Productos</NavLink></li>
-                <li><NavLink to="/carrito">Carrito</NavLink></li>
-                <li><NavLink to="/producto/:id"></NavLink></li>
-                <li><CartWidget></CartWidget></li>
-            </ul>
-        </nav>
-    )
+  return (
+    <nav
+      className="navbar navbar-expand-lg navbar-dark bg-black"
+    >
+      <div className="container-fluid">
+        <NavLink className="navbar-brand" to="/">
+          Mi Tienda
+        </NavLink>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav ms-auto">
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/">
+                Home
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/productos">
+                Productos
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/carrito">
+                Carrito
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <CartWidget />
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  )
 }
