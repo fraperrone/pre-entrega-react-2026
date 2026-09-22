@@ -11,7 +11,7 @@ export default function CartWidget() {
   const totalItems = cart.reduce((acc, prod) => acc + (prod.cantidad || 1), 0);
 
   return (
-    <Link to="/cart" className="cart-widget">
+    <Link to="/carrito" className="cart-widget">
       🛒
       {totalItems > 0 && <span className="cart-count">{totalItems}</span>}
     </Link>
