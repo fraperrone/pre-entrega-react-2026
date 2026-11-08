@@ -9,6 +9,7 @@ import Register from "../components/forms/Register";
 import ProtectedRoute from "../auth/ProtectedRoute";
 import DataLoader from "../data/DataLoader";
 import { getProductos } from "../sevices/productosService";
+import AdminPanelPage from "../pages/AdminPanel";
 
 export default function RouterApp() {
   return (
@@ -19,6 +20,7 @@ export default function RouterApp() {
         {/* formularios */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/admin" element={<AdminPanelPage />} />
 
         {/* ruta productos */}
         <Route index element={<Home />} />

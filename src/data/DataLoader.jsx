@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Spinner from "react-bootstrap/Spinner";
 import Alert from "react-bootstrap/Alert";
 
-export default function DataLoader({ fetchData, children }) {
+export default function DataLoader({ fetchData, children, refresh }) {
 
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -29,7 +29,7 @@ export default function DataLoader({ fetchData, children }) {
 
     cargarDatos();
 
-  }, [fetchData]);
+  }, [fetchData, refresh]);
 
   if (loading) {
     return (

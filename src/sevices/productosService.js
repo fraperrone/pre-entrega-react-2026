@@ -30,14 +30,14 @@ export const crearProducto = async (datos) => {
 
 // Modificar producto
 export const modificarProducto = async (id, datos) => {
-  const productoRef = doc(db, "productos", id);
+  const productoRef = doc(db, "products", id);
 
   await updateDoc(productoRef, datos);
 };
 
 // Eliminar producto
 export const eliminarProducto = async (id) => {
-  const productoRef = doc(db, "productos", id);
+  const productoRef = doc(db, "products", id);
 
   await deleteDoc(productoRef);
 };
