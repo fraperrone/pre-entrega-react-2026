@@ -27,7 +27,7 @@ export default function RouterApp() {
           path="/productos"
           element={
             <DataLoader fetchData={getProductos}>
-              {(data) => <ItemlistContainer productsData={data} />}
+              {(data) => <ItemlistContainer products={data} />}
             </DataLoader>
           }
         />
