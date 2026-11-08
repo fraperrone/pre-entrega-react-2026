@@ -2,30 +2,31 @@ import { useContext } from 'react'
 import { CartContext } from '../context/CartContext'
 import { Link } from 'react-router-dom'
 
-export default function Item({ producto }) {
+export default function Item({ product }) {
+  console.log('product:', product)
   const { addToCart } = useContext(CartContext)
   return (
     <div className="col-md-4 mb-4">
       <div className="card h-100 shadow-sm">
-        <img src={producto.imagen} alt={producto.nombre} className='card-img-top' />
+        <img src={product.imageUrl} alt={product.name} className='card-img-top' />
         <div className='card-body'>
 
         </div>
-        <h3 className='card-title'>{producto.nombre}</h3>
-        <p className='card-text'>{producto.descripcion}</p>
-        <p className='card-text fw-bold'>Precio: ${producto.precio}</p>
+        <h3 className='card-title'>{product.name}</h3>
+        <p className='card-text'>{product.description}</p>
+        <p className='card-text fw-bold'>Precio: ${product.price}</p>
         <button className='btn btn-primary'
           onClick={() =>
             addToCart({
-              id: producto.id,
-              nombre: producto.nombre,
-              precio: producto.precio,
+              id: product.id,
+              nombre: product.name,
+              precio: product.price,
             })
           }
         >
           Agregar producto al carrito
         </button>
-        <Link to={`${producto.id}`} state={{ producto }}>
+        <Link to={`${product.id}`} state={{ product }}>
           Ver detalle
         </Link>
       </div>

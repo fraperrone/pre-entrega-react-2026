@@ -7,13 +7,13 @@ import {
   deleteDoc
 } from "firebase/firestore";
 
-import { db } from "../firebase/config";
+import { db } from "../firebase/clienteFireBase";
 
-const productosRef = collection(db, "productos");
+const productsRef = collection(db, "products");
 
 // Obtener productos
 export const getProductos = async () => {
-  const snapshot = await getDocs(productosRef);
+  const snapshot = await getDocs(productsRef);
 
   return snapshot.docs.map(doc => ({
     id: doc.id,

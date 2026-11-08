@@ -1,24 +1,15 @@
 import Item from './Item'
 import { useState, useEffect } from 'react'
 
-export default function ItemListContainer() {
-  const [productos, setProductos] = useState([])
+export default function ItemListContainer( productsData = []) {
+  const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch('/data/productos.json')
-      .then((res) => res.json())
-      .then((data) => {
-        setTimeout(() => {
-          setProductos(data)
-          setLoading(false)
-        }, 1000) // espera 1 segundo antes de actualizar
-      })
-      .catch((error) => {
-        console.error('Error cargando productos:', error)
-        setLoading(false)
-      })
-  }, [])
+    console.log('productosData:', productsData.productsData)
+    setProducts(productsData.productsData)
+    setLoading(false)
+  }, [productsData])
 
   return (
     <div className="container my-4">
@@ -32,8 +23,8 @@ export default function ItemListContainer() {
         </div>
       ) : (
         <div className="row">
-          {productos.map((producto) => (
-            <Item key={producto.id} producto={producto} />
+          {products?.map((product) => (
+            <Item key={product.id} product={product} />
           ))}
         </div>
       )}

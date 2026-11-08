@@ -4,9 +4,11 @@ import ItemlistContainer from "../components/ItemlistContainer";
 import Carrito from "../components/Cart";
 import ItemDetails from "../components/ItemDetails";
 import Home from "../components/Home";
-import Login from "../components/Login";
-import Register from "../components/Register";
+import Login from "../components/forms/Login";
+import Register from "../components/forms/Register";
 import ProtectedRoute from "../auth/ProtectedRoute";
+import DataLoader from "../data/DataLoader";
+import { getProductos } from "../sevices/productosService";
 
 export default function RouterApp() {
   return (
@@ -21,7 +23,14 @@ export default function RouterApp() {
         {/* ruta productos */}
         <Route index element={<Home />} />
 
-        <Route path="/productos" element={<ItemlistContainer />} />
+        <Route
+          path="/productos"
+          element={
+            <DataLoader fetchData={getProductos}>
+              {(data) => <ItemlistContainer productsData={data} />}
+            </DataLoader>
+          }
+        />
         {/* ruta producto por id */}
         <Route path="/productos/:id" element={<ItemDetails></ItemDetails>} />
 
