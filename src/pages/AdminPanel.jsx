@@ -1,9 +1,13 @@
 import GenericTable from "../components/tables/GenericTable";
 import DataLoader from "../data/DataLoader";
-import { getProductos, modificarProducto } from "../sevices/productosService";
+import {
+  getProductos,
+  modificarProducto,
+  crearProducto,
+  eliminarProducto,
+} from "../sevices/productosService";
 import ModalConfirmarEliminar from "../components/modals/ModalConfirmarEliminar";
 import { useState, useEffect } from "react";
-import { eliminarProducto } from "../sevices/productosService";
 import ModalMensaje from "../components/modals/ModalMensaje";
 import FormularioProducto from "../components/forms/FormularioProducto";
 
@@ -15,6 +19,7 @@ export default function AdminPanelPage() {
   const [mensajeModal, setMensajeModal] = useState({ mensaje: "", title: "" });
   const [showEditarModal, setShowEditarModal] = useState(false);
   const [productoAEditar, setProductoAEditar] = useState(null);
+  const [showAgregarModal, setShowAgregarModal] = useState(false);
 
   const handleEliminar = (producto) => {
     // Aquí puedes implementar la lógica para eliminar el producto
@@ -81,7 +86,27 @@ export default function AdminPanelPage() {
       setRefresh((prev) => !prev); // Forzar la recarga de datos después de guardar
     }
   };
-
+  const handleAgregarProducto = async (productoAgregado) => {
+    // Aquí puedes implementar la lógica para agregar un nuevo producto
+    console.log("Agregar producto:", productoAgregado);
+    // Por ejemplo, podrías abrir un modal con un formulario para agregar el producto
+    try {
+      await crearProducto(productoAgregado);
+      setMensajeModal({
+        mensaje: "Producto agregado correctamente.",
+        title: "Éxito",
+      });
+      setShowMensajeModal(true);
+    } catch (error) {
+      setMensajeModal({
+        mensaje: "Error al agregar el producto: " + error.message,
+        title: "Error",
+      });
+      setShowMensajeModal(true);
+    } finally {
+      setRefresh((prev) => !prev); // Forzar la recarga de datos después de agregar
+    }
+  };
   useEffect(() => {
     // Aquí puedes implementar la lógica para actualizar la lista de productos después de eliminar uno
     // Por ejemplo, podrías volver a cargar los productos desde la base de datos
@@ -95,6 +120,7 @@ export default function AdminPanelPage() {
         onHide={onHideModal}
         onConfirmar={handleModalConfirmarEliminar}
       />
+      {/* formulario de editar */}
       <FormularioProducto
         show={showEditarModal}
         onHide={() => setShowEditarModal(false)}
@@ -105,6 +131,17 @@ export default function AdminPanelPage() {
         }}
         datosIniciales={productoAEditar}
       />
+      {/* formulario de agregar */}
+      <FormularioProducto
+        show={showAgregarModal}
+        onHide={() => setShowAgregarModal(false)}
+        onGuardar={(productoAgregado) => {
+          handleAgregarProducto(productoAgregado);
+          setShowAgregarModal(false);
+          setRefresh((prev) => !prev);
+        }}
+      />
+      {/* modal de mensaje */}
 
       <ModalMensaje
         show={showMensajeModal}
@@ -120,6 +157,12 @@ export default function AdminPanelPage() {
               Bienvenido al panel de administración. Aquí puedes gestionar los
               productos.
             </p>
+            <button
+              className="btn btn-primary mb-3"
+              onClick={() => setShowAgregarModal(true)}
+            >
+              <i className="bi bi-plus"></i> Agregar producto
+            </button>
             {/* Aquí puedes agregar más componentes o funcionalidades para administrar los productos */}
             <GenericTable
               datos={data}

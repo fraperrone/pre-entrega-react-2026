@@ -143,7 +143,7 @@ export default function FormularioProducto({
               value={formulario.imageUrl}
               onChange={handleChange}
               placeholder="https://..."
-              required
+              
             />
           </Form.Group>
 

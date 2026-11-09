@@ -23,6 +23,7 @@ export const getProductos = async () => {
 
 // Crear producto
 export const crearProducto = async (datos) => {
+  const productosRef = collection(db, "products");
   const resultado = await addDoc(productosRef, datos);
 
   return resultado.id;
