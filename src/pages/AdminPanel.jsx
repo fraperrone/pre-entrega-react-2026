@@ -1,10 +1,11 @@
 import GenericTable from "../components/tables/GenericTable";
 import DataLoader from "../data/DataLoader";
-import { getProductos } from "../sevices/productosService";
+import { getProductos, modificarProducto } from "../sevices/productosService";
 import ModalConfirmarEliminar from "../components/modals/ModalConfirmarEliminar";
 import { useState, useEffect } from "react";
 import { eliminarProducto } from "../sevices/productosService";
 import ModalMensaje from "../components/modals/ModalMensaje";
+import FormularioProducto from "../components/forms/FormularioProducto";
 
 export default function AdminPanelPage() {
   const [showModal, setShowModal] = useState(false);
@@ -12,6 +13,8 @@ export default function AdminPanelPage() {
   const [refresh, setRefresh] = useState(false); // Estado para forzar la recarga de datos
   const [showMensajeModal, setShowMensajeModal] = useState(false);
   const [mensajeModal, setMensajeModal] = useState({ mensaje: "", title: "" });
+  const [showEditarModal, setShowEditarModal] = useState(false);
+  const [productoAEditar, setProductoAEditar] = useState(null);
 
   const handleEliminar = (producto) => {
     // Aquí puedes implementar la lógica para eliminar el producto
@@ -46,6 +49,39 @@ export default function AdminPanelPage() {
       }
     }
   };
+  const handleEditar = (producto) => {
+    // Aquí puedes implementar la lógica para editar el producto
+    console.log("Editar producto:", producto.id);
+    console.log("Producto a editar:", producto);
+    // Por ejemplo, podrías abrir un modal con un formulario para editar el producto
+    setProductoAEditar(producto);
+    setShowEditarModal(true);
+  };
+
+  const handleGuardarEdicion = async (productoEditado) => {
+    console.log(productoEditado);
+    try {
+      await modificarProducto(productoAEditar.id, productoEditado);
+      setMensajeModal({
+        mensaje: "Producto modificado correctamente.",
+        title: "Éxito",
+      });
+      setShowEditarModal(false);
+
+      setShowMensajeModal(true);
+    } catch (error) {
+      setMensajeModal({
+        mensaje: "Error al modificar el producto: " + error.message,
+        title: "Error",
+      });
+      setShowEditarModal(false);
+
+      setShowMensajeModal(true);
+    } finally {
+      setRefresh((prev) => !prev); // Forzar la recarga de datos después de guardar
+    }
+  };
+
   useEffect(() => {
     // Aquí puedes implementar la lógica para actualizar la lista de productos después de eliminar uno
     // Por ejemplo, podrías volver a cargar los productos desde la base de datos
@@ -53,11 +89,23 @@ export default function AdminPanelPage() {
 
   return (
     <>
+      {/* modal y mensaje de editar */}
       <ModalConfirmarEliminar
         show={showModal}
         onHide={onHideModal}
         onConfirmar={handleModalConfirmarEliminar}
       />
+      <FormularioProducto
+        show={showEditarModal}
+        onHide={() => setShowEditarModal(false)}
+        onGuardar={(productoEditado) => {
+          setShowEditarModal(false);
+          setRefresh((prev) => !prev);
+          handleGuardarEdicion(productoEditado); // Forzar la recarga de datos después de guardar
+        }}
+        datosIniciales={productoAEditar}
+      />
+
       <ModalMensaje
         show={showMensajeModal}
         onHide={() => setShowMensajeModal(false)}
@@ -77,6 +125,7 @@ export default function AdminPanelPage() {
               datos={data}
               columnas={[
                 "id",
+                "category",
                 "name",
                 "price",
                 "stock",
@@ -84,6 +133,7 @@ export default function AdminPanelPage() {
                 "imageUrl",
               ]}
               onEliminar={handleEliminar}
+              onEditar={handleEditar}
             />
           </div>
         )}

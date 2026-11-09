@@ -4,6 +4,15 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
+const formularioInicial = {
+  name: "",
+  price: "",
+  stock: "",
+  category: "",
+  description: "",
+  imageUrl: ""
+};
+
 export default function FormularioProducto({
   show,
   onHide,
@@ -11,16 +20,17 @@ export default function FormularioProducto({
   datosIniciales = null
 }) {
 
-  const [formulario, setFormulario] = useState({
-    nombre: "",
-    precio: ""
-  });
+  const [formulario, setFormulario] = useState(formularioInicial);
 
   useEffect(() => {
     if (show) {
       setFormulario({
-        nombre: datosIniciales?.nombre ?? "",
-        precio: datosIniciales?.precio ?? ""
+        name: datosIniciales?.name ?? "",
+        price: datosIniciales?.price ?? "",
+        stock: datosIniciales?.stock ?? "",
+        category: datosIniciales?.category ?? "",
+        description: datosIniciales?.description ?? "",
+        imageUrl: datosIniciales?.imageUrl ?? ""
       });
     }
   }, [show, datosIniciales]);
@@ -36,7 +46,12 @@ export default function FormularioProducto({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onGuardar(formulario);
+
+    onGuardar({
+      ...formulario,
+      price: Number(formulario.price),
+      stock: Number(formulario.stock)
+    });
   };
 
   const esEdicion = Boolean(datosIniciales);
@@ -57,22 +72,77 @@ export default function FormularioProducto({
             <Form.Label>Nombre</Form.Label>
             <Form.Control
               type="text"
-              name="nombre"
-              value={formulario.nombre}
+              name="name"
+              value={formulario.name}
+              onChange={handleChange}
+              required
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Label>Precio</Form.Label>
+            <Form.Control
+              type="number"
+              name="price"
+              value={formulario.price}
+              onChange={handleChange}
+              min="0"
+              step="0.01"
+              required
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Label>Stock</Form.Label>
+            <Form.Control
+              type="number"
+              name="stock"
+              value={formulario.stock}
+              onChange={handleChange}
+              min="0"
+              step="1"
+              required
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Label>Categoría</Form.Label>
+            <Form.Select
+              name="category"
+              value={formulario.category}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Seleccionar categoría</option>
+              <option value="Accesorios">Accesorios</option>
+              <option value="Ropa">Ropa</option>
+              <option value="Hogar">Hogar</option>
+              <option value="Electrónica">Electrónica</option>
+              <option value="Calzado">Calzado</option>
+              <option value="Deportes">Deportes</option>
+            </Form.Select>
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Label>Descripción</Form.Label>
+            <Form.Control
+              as="textarea"
+              rows={3}
+              name="description"
+              value={formulario.description}
               onChange={handleChange}
               required
             />
           </Form.Group>
 
           <Form.Group>
-            <Form.Label>Precio</Form.Label>
+            <Form.Label>URL de imagen</Form.Label>
             <Form.Control
-              type="number"
-              name="precio"
-              value={formulario.precio}
+              type="url"
+              name="imageUrl"
+              value={formulario.imageUrl}
               onChange={handleChange}
-              min="0"
-              step="0.01"
+              placeholder="https://..."
               required
             />
           </Form.Group>

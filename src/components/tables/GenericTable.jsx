@@ -1,6 +1,8 @@
 
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
+import { Spinner } from "react-bootstrap";
+import {useState} from "react";
 
 export default function GenericTable({
   columnas = [],
@@ -9,7 +11,14 @@ export default function GenericTable({
   onEliminar
 }) {
 
-    console.log(datos)
+  const [ showSpinner, setShowSpinner ] = useState(false);
+
+  const handleEditar = (dato) => {
+    setShowSpinner(true);
+    onEditar(dato);
+    setShowSpinner(false);
+  }
+
   return (
     <Table striped bordered hover responsive>
       <thead>
@@ -36,11 +45,13 @@ export default function GenericTable({
 
               <td className="text-center">
                 <div className="d-flex justify-content-center gap-2">
-
+                  {showSpinner && (
+                    <Spinner animation="border" size="sm" />
+                  )}
                   <Button
                     variant="outline-primary"
                     size="sm"
-                    onClick={() => onEditar(dato)}
+                    onClick={() => handleEditar(dato)}
                   >
                     <i className="bi bi-pencil" />
                   </Button>
@@ -53,6 +64,7 @@ export default function GenericTable({
                     <i className="bi bi-trash" />
                   </Button>
 
+                  
                 </div>
               </td>
 
