@@ -1,10 +1,10 @@
 
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
-
+import {AuthContext} from "../../context/AuthContext";
 export default function Register() {
 
-  const { registrar } = useContext(AuthContext);
+  // const { registrar } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const [form, setForm] = useState({

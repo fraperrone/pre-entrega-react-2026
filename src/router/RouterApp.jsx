@@ -14,12 +14,13 @@ import AdminPanelPage from "../pages/AdminPanel";
 export default function RouterApp() {
   return (
     <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+
       <Route path="/" element={<Layout />}>
         {/* RUTAS PUBLICAS */}
 
         {/* formularios */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
         <Route path="/admin" element={<AdminPanelPage />} />
 
         {/* ruta productos */}
