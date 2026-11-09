@@ -2,6 +2,8 @@
 import { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import {AuthContext} from "../../context/AuthContext";
+import { auth } from '../../firebase/clienteFireBase';
+import { createUserWithEmailAndPassword } from "firebase/auth";
 export default function Register() {
 
   // const { registrar } = useContext(AuthContext);
@@ -40,7 +42,8 @@ export default function Register() {
     try {
       setLoading(true);
 
-      await registrar(form.email, form.password);
+      console.log("Formulario de registro:", form);
+      await createUserWithEmailAndPassword(auth, form.email, form.password);
 
       navigate("/");
 
