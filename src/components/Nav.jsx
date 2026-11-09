@@ -1,11 +1,9 @@
-import { NavLink } from 'react-router-dom'
-import CartWidget from './CartWidget'
+import { NavLink } from "react-router-dom";
+import CartWidget from "./CartWidget";
 
 export default function Nav() {
   return (
-    <nav
-      className="navbar navbar-expand-lg navbar-dark bg-black"
-    >
+    <nav className="navbar navbar-expand-lg navbar-dark bg-black">
       <div className="container-fluid">
         <NavLink className="navbar-brand" to="/">
           Mi Tienda
@@ -21,6 +19,11 @@ export default function Nav() {
 
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto">
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/admin">
+                Admin
+              </NavLink>
+            </li>
             <li className="nav-item">
               <NavLink className="nav-link" to="/">
                 Home
@@ -43,5 +46,5 @@ export default function Nav() {
         </div>
       </div>
     </nav>
-  )
+  );
 }
