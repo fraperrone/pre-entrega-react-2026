@@ -1,6 +1,11 @@
 
 import { useState } from 'react'
 import { Form, Button, Card, Alert, Spinner } from 'react-bootstrap'
+import { auth } from '../../firebase/clienteFireBase'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+
+
+
 
 const Login = () => {
 
@@ -32,11 +37,17 @@ const Login = () => {
 
       // Ejemplo:
       // await loginPostCredentials(credentials)
+      const res = await signInWithEmailAndPassword(auth, credentials.email, credentials.password)
+      console.log('Usuario autenticado correctamente')
+      console.log(auth.currentUser)
+      console.log(res.user)
 
     } catch (err) {
       setError(
         err.response?.data?.message || 'Error al iniciar sesión'
       )
+      console.log(err.code)
+      console.log(err.message)
     } finally {
       setLoading(false)
     }
