@@ -1,5 +1,6 @@
 import { createContext, useState } from "react";
 import { auth } from "../firebase/clienteFireBase";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "firebase/auth";
 
 export const AuthContext = createContext();
 
@@ -9,7 +10,8 @@ export const AuthProvider = ({ children }) => {
   // iniciar sesión
   const login = async (userData) => {
     try {
-      const res = await auth.signInWithEmailAndPassword(
+      const res = await signInWithEmailAndPassword(
+        auth,
         userData.email,
         userData.password,
       );
@@ -23,7 +25,8 @@ export const AuthProvider = ({ children }) => {
   // cerrar sesión
   const logout = async () => {
     try {
-      await auth.signOut();
+      await signOut(auth);
+      console.log("Usuario deslogueado");
       setUser(null);
     } catch (error) {
       console.error("Error al cerrar sesión:", error);
@@ -32,7 +35,8 @@ export const AuthProvider = ({ children }) => {
 
   const register = (userData) => {
     try {
-      const res = auth.createUserWithEmailAndPassword(
+      const res = createUserWithEmailAndPassword(
+        auth,
         userData.email,
         userData.password,
       );

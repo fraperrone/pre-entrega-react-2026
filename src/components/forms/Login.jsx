@@ -1,10 +1,10 @@
 
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { Form, Button, Card, Alert, Spinner } from 'react-bootstrap'
 import { auth } from '../../firebase/clienteFireBase'
 import { signInWithEmailAndPassword } from 'firebase/auth'
-
-
+import { AuthContext } from '../../context/AuthContext'
+import {useNavigate} from 'react-router-dom'
 
 
 const Login = () => {
@@ -16,6 +16,9 @@ const Login = () => {
 
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+
+  const { login } = useContext(AuthContext)
+  const navigate = useNavigate()
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -37,10 +40,9 @@ const Login = () => {
 
       // Ejemplo:
       // await loginPostCredentials(credentials)
-      const res = await signInWithEmailAndPassword(auth, credentials.email, credentials.password)
+      await login(credentials)
       console.log('Usuario autenticado correctamente')
-      console.log(auth.currentUser)
-      console.log(res.user)
+      navigate('/')
 
     } catch (err) {
       setError(

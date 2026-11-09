@@ -1,7 +1,11 @@
-import { NavLink } from "react-router-dom";
-import CartWidget from "./CartWidget";
+import { NavLink } from 'react-router-dom'
+import CartWidget from './CartWidget'
+import { useContext } from 'react'
+import { AuthContext } from '../context/AuthContext'
 
 export default function Nav() {
+  const { user, logout } = useContext(AuthContext)
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-black">
       <div className="container-fluid">
@@ -42,9 +46,16 @@ export default function Nav() {
             <li className="nav-item">
               <CartWidget />
             </li>
+            {user && (
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/logout" onClick={logout}>
+                  Logout
+                </NavLink>
+              </li>
+            )}
           </ul>
         </div>
       </div>
     </nav>
-  );
+  )
 }
