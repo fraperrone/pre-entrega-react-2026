@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Item from './Item'
 import BuscadorComponent from './buscador/BuscadorComponent'
 
+
 export default function ItemListContainer({ products, loading }) {
   const [currentPage, setCurrentPage] = useState(1)
 

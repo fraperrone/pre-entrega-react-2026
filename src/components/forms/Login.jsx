@@ -5,6 +5,7 @@ import { auth } from '../../firebase/clienteFireBase'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { AuthContext } from '../../context/AuthContext'
 import {useNavigate} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 
 const Login = () => {
@@ -123,7 +124,7 @@ const Login = () => {
 
           <div className="text-center mt-4">
             <small className="text-muted">
-              ¿Olvidaste tu contraseña?
+              ¿No tenes cuenta? <Link to="/register">Registrate aquí</Link>
             </small>
           </div>
 
