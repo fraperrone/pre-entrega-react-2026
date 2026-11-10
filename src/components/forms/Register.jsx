@@ -5,7 +5,6 @@ import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { Helmet } from 'react-helmet-async'
 
 export default function Register() {
-  // const { registrar } = useContext(AuthContext);
   const navigate = useNavigate()
 
   const [form, setForm] = useState({
@@ -41,7 +40,6 @@ export default function Register() {
     try {
       setLoading(true)
 
-      console.log('Formulario de registro:', form)
       await createUserWithEmailAndPassword(auth, form.email, form.password)
 
       navigate('/')

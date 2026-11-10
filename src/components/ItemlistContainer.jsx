@@ -49,54 +49,64 @@ export default function ItemListContainer({ products, loading }) {
           </div>
         ) : (
           <>
-            <div className="row">
-              {productosFiltrados.map((product) => (
-                <Item key={product.id} product={product} />
-              ))}
-            </div>
+            {busqueda !== '' ? (
+              <div className="row">
+                {productosFiltrados.map((product) => (
+                  <Item key={product.id} product={product} />
+                ))}
+              </div>
+            ) : (
+              <div className="row">
+                {currentProducts.map((product) => (
+                  <Item key={product.id} product={product} />
+                ))}
+              </div>
+            )}
 
             {/* Paginación */}
-            <nav className="mt-4">
-              <ul className="pagination justify-content-center">
-                <li
-                  className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}
-                >
-                  <button
-                    className="page-link"
-                    onClick={() => setCurrentPage(currentPage - 1)}
-                    disabled={currentPage === 1}
-                  >
-                    Anterior
-                  </button>
-                </li>
-
-                {Array.from({ length: totalPages }, (_, index) => (
+            {busqueda === '' && (
+              <nav className="mt-4">
+                <ul className="pagination justify-content-center">
                   <li
-                    key={index}
-                    className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}
+                    className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}
                   >
                     <button
                       className="page-link"
-                      onClick={() => setCurrentPage(index + 1)}
+                      onClick={() => setCurrentPage(currentPage - 1)}
+                      disabled={currentPage === 1}
                     >
-                      {index + 1}
+                      Anterior
                     </button>
                   </li>
-                ))}
 
-                <li
-                  className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}
-                >
-                  <button
-                    className="page-link"
-                    onClick={() => setCurrentPage(currentPage + 1)}
-                    disabled={currentPage === totalPages}
+                  {Array.from({ length: totalPages }, (_, index) => (
+                    <li
+                      key={index}
+                      className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}
+                    >
+                      <button
+                        className="page-link"
+                        onClick={() => setCurrentPage(index + 1)}
+                      >
+                        {index + 1}
+                      </button>
+                    </li>
+                  ))}
+
+                  <li
+                    className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}
                   >
-                    Siguiente
-                  </button>
-                </li>
-              </ul>
-            </nav>
+                    <button
+                      className="page-link"
+                      onClick={() => setCurrentPage(currentPage + 1)}
+                      disabled={currentPage === totalPages}
+                    >
+                      Siguiente
+                    </button>
+                  </li>
+                </ul>
+              </nav>
+            )}
           </>
         )}
       </div>

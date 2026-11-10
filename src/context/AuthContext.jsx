@@ -4,6 +4,10 @@ import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } f
 
 export const AuthContext = createContext();
 
+
+
+// PENDIENTE: modal para mensajes de error y exito de login y registro
+
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
@@ -15,7 +19,6 @@ export const AuthProvider = ({ children }) => {
         userData.email,
         userData.password,
       );
-      console.log("Usuario logueado:", res.user);
       setUser(res.user);
     } catch (error) {
       console.error("Error al iniciar sesión:", error);
@@ -26,21 +29,19 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     try {
       await signOut(auth);
-      console.log("Usuario deslogueado");
       setUser(null);
     } catch (error) {
       console.error("Error al cerrar sesión:", error);
     }
   };
 
-  const register = (userData) => {
+  const register = async (userData) => {
     try {
-      const res = createUserWithEmailAndPassword(
+      await createUserWithEmailAndPassword(
         auth,
         userData.email,
         userData.password,
       );
-      console.log("Usuario registrado:", res.user);
     } catch (error) {
       console.error("Error al registrar usuario:", error);
     }

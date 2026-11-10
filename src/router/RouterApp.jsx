@@ -18,11 +18,8 @@ export default function RouterApp() {
       <Route path="/register" element={<Register />} />
 
       <Route path="/" element={<Layout />}>
-        {/* RUTAS PUBLICAS */}
 
-        {/* formularios */}
 
-        {/* ruta productos */}
         <Route index element={<Home />} />
 
         <Route
@@ -33,7 +30,6 @@ export default function RouterApp() {
             </DataLoader>
           }
         />
-        {/* ruta producto por id */}
         <Route path="/productos/:id" element={<ItemDetails></ItemDetails>} />
 
         <Route path="/carrito" element={<Carrito />} />

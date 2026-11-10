@@ -1,7 +1,5 @@
 import { useState, useContext } from 'react'
 import { Form, Button, Card, Alert, Spinner } from 'react-bootstrap'
-import { auth } from '../../firebase/clienteFireBase'
-import { signInWithEmailAndPassword } from 'firebase/auth'
 import { AuthContext } from '../../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
@@ -34,18 +32,11 @@ const Login = () => {
     setLoading(true)
 
     try {
-      // Aquí conectarías tu API de autenticación
-      console.log(credentials)
 
-      // Ejemplo:
-      // await loginPostCredentials(credentials)
       await login(credentials)
-      console.log('Usuario autenticado correctamente')
       navigate('/')
     } catch (err) {
       setError(err.response?.data?.message || 'Error al iniciar sesión')
-      console.log(err.code)
-      console.log(err.message)
     } finally {
       setLoading(false)
     }

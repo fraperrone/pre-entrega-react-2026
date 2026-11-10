@@ -22,8 +22,6 @@ export default function AdminPanelPage() {
   const [showAgregarModal, setShowAgregarModal] = useState(false);
 
   const handleEliminar = (producto) => {
-    // Aquí puedes implementar la lógica para eliminar el producto
-    console.log("Eliminar producto:", producto.id);
     setProductoAEliminar(producto);
     setShowModal(true);
   };
@@ -55,16 +53,12 @@ export default function AdminPanelPage() {
     }
   };
   const handleEditar = (producto) => {
-    // Aquí puedes implementar la lógica para editar el producto
-    console.log("Editar producto:", producto.id);
-    console.log("Producto a editar:", producto);
-    // Por ejemplo, podrías abrir un modal con un formulario para editar el producto
+    
     setProductoAEditar(producto);
     setShowEditarModal(true);
   };
 
   const handleGuardarEdicion = async (productoEditado) => {
-    console.log(productoEditado);
     try {
       await modificarProducto(productoAEditar.id, productoEditado);
       setMensajeModal({
@@ -87,9 +81,7 @@ export default function AdminPanelPage() {
     }
   };
   const handleAgregarProducto = async (productoAgregado) => {
-    // Aquí puedes implementar la lógica para agregar un nuevo producto
-    console.log("Agregar producto:", productoAgregado);
-    // Por ejemplo, podrías abrir un modal con un formulario para agregar el producto
+    
     try {
       await crearProducto(productoAgregado);
       setMensajeModal({
@@ -108,8 +100,7 @@ export default function AdminPanelPage() {
     }
   };
   useEffect(() => {
-    // Aquí puedes implementar la lógica para actualizar la lista de productos después de eliminar uno
-    // Por ejemplo, podrías volver a cargar los productos desde la base de datos
+    
   }, [productoAEliminar]);
 
   return (
@@ -163,7 +154,6 @@ export default function AdminPanelPage() {
             >
               <i className="bi bi-plus"></i> Agregar producto
             </button>
-            {/* Aquí puedes agregar más componentes o funcionalidades para administrar los productos */}
             <GenericTable
               datos={data}
               columnas={[
