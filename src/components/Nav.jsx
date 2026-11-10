@@ -1,10 +1,30 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import CartWidget from './CartWidget'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { AuthContext } from '../context/AuthContext'
+import ModalMensaje from './modals/ModalMensaje'
 
 export default function Nav() {
   const { user, logout } = useContext(AuthContext)
+  const [showModal, setShowModal] = useState(false)
+  const [modalInfo, setModalInfo] = useState({
+    title: '',
+    message: '',
+  })
+
+  const navigate = useNavigate()
+
+  const handleLogout = async () => {
+    try {
+      await logout()
+      navigate('/')
+      setModalInfo( {title:'Exito', message:"Sesion cerrada con exito"})
+      setShowModal(true)
+    } catch (err) {
+      setModalInfo({ title: 'error', message: err.message })
+      setShowModal(true)
+    }
+  }
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-black">
@@ -47,8 +67,8 @@ export default function Nav() {
               <CartWidget />
             </li>
             {user && (
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/logout" onClick={logout}>
+              <li className="nav-item" onClick={handleLogout}>
+                <NavLink className="nav-link" to="/">
                   Logout
                 </NavLink>
               </li>
@@ -56,6 +76,14 @@ export default function Nav() {
           </ul>
         </div>
       </div>
+
+      {/* modal */}
+      <ModalMensaje
+        show={showModal}
+        onHide={() => setShowModal(false)}
+        mensaje={modalInfo.message}
+        title={modalInfo.title}
+      />
     </nav>
   )
 }
