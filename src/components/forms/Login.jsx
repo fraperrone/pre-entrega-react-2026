@@ -32,11 +32,10 @@ const Login = () => {
     setLoading(true)
 
     try {
-
       await login(credentials)
       navigate('/')
     } catch (err) {
-      setError(err.response?.data?.message || 'Error al iniciar sesión')
+      setError(err.message || 'Error al iniciar sesión')
     } finally {
       setLoading(false)
     }
@@ -44,10 +43,12 @@ const Login = () => {
 
   return (
     <>
-
       <Helmet>
         <title>Login - Mi Tienda</title>
-        <meta name="description" content="Inicia sesión en nuestra aplicación para acceder a todas las funcionalidades." />
+        <meta
+          name="description"
+          content="Inicia sesión en nuestra aplicación para acceder a todas las funcionalidades."
+        />
       </Helmet>
 
       <div className="min-vh-100 d-flex justify-content-center align-items-center bg-light">
