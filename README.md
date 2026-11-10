@@ -1,16 +1,23 @@
-# React + Vite
+## Parte 2
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Se conecta el proyecto a Firebase mediante una base de datos NoSQL y se incorpora el servicio de autenticación.
 
-Currently, two official plugins are available:
+- Se agregan las páginas de inicio de sesión y registro público mediante email y contraseña.
+- Se incorpora un panel para agregar, modificar y eliminar productos.
+- Se implementa `AuthContext` para gestionar la autenticación mediante Context API.
+- Se agregan modales y mensajes de alerta para informar el resultado de las operaciones.
+- Se utiliza React-Bootstrap para lograr un diseño responsivo.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### Credenciales de prueba
 
-## React Compiler
+- Usuario: `fperronerey`
+- Contraseña: `admin1234`
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+**Nota:** El carrito es demostrativo. Al no contar con un sistema de pagos real, no modifica los datos de la base de datos.
 
-## Expanding the ESLint configuration
+### Fuentes
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Se utilizó IA como apoyo para el formateo del código, la implementación de Context API, React-Bootstrap y la documentación.
+
+
+
