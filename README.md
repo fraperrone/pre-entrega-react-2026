@@ -19,5 +19,32 @@ Se conecta el proyecto a Firebase mediante una base de datos NoSQL y se incorpor
 
 Se utilizó IA como apoyo para el formateo del código, la implementación de Context API, React-Bootstrap y la documentación.
 
+### Instalación y ejecución local
 
+1. Clonar el repositorio:
 
+```bash
+git clone https://github.com/fraperrone/pre-entrega-react-2026.git
+```
+
+2. Ingresar al directorio:
+
+```bash
+cd pre-entrega-react-2026
+```
+
+3. Instalar las dependencias:
+
+```bash
+npm install
+```
+
+4. Iniciar el servidor de desarrollo:
+
+```bash
+npm run dev
+```
+
+5. Abrir en el navegador la dirección indicada por Vite.
+
+**Nota:** El proyecto ya cuenta con la configuración de Firebase (`firebaseConfig`), por lo que no es necesario configurar variables de entorno adicionales.
