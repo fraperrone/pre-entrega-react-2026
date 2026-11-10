@@ -1,11 +1,20 @@
-import { useContext } from "react";
-import { CartContext } from "../context/CartContext";
+import { useContext } from 'react'
+import { CartContext } from '../context/CartContext'
+import { Helmet } from 'react-helmet-async'
 
 export default function Cart() {
-  const { cart, removeFromCart, clearCart } = useContext(CartContext);
+  const { cart, removeFromCart, clearCart } = useContext(CartContext)
 
   return (
     <div className="container my-5">
+      <Helmet>
+        <title>Carrito de Compras - Mi Tienda</title>
+        <meta
+          name="description"
+          content="Revisa los productos que has agregado a tu carrito de compras y finaliza tu compra."
+        />
+      </Helmet>
+
       <h2 className="h2 text-center mb-4">🛒 Carrito de compras</h2>
 
       {Array.isArray(cart) && cart.length === 0 ? (
@@ -37,12 +46,10 @@ export default function Cart() {
             <button className="btn btn-outline-danger" onClick={clearCart}>
               Vaciar carrito
             </button>
-            <button className="btn btn-success">
-              Finalizar compra
-            </button>
+            <button className="btn btn-success">Finalizar compra</button>
           </div>
         </>
       )}
     </div>
-  );
+  )
 }

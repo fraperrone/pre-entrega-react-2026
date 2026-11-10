@@ -1,18 +1,16 @@
-
 import { useState, useContext } from 'react'
 import { Form, Button, Card, Alert, Spinner } from 'react-bootstrap'
 import { auth } from '../../firebase/clienteFireBase'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { AuthContext } from '../../context/AuthContext'
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
-
+import { Helmet } from 'react-helmet-async'
 
 const Login = () => {
-
   const [credentials, setCredentials] = useState({
     email: '',
-    password: ''
+    password: '',
   })
 
   const [error, setError] = useState('')
@@ -24,9 +22,9 @@ const Login = () => {
   const handleChange = (e) => {
     const { name, value } = e.target
 
-    setCredentials(prev => ({
+    setCredentials((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }))
   }
 
@@ -44,11 +42,8 @@ const Login = () => {
       await login(credentials)
       console.log('Usuario autenticado correctamente')
       navigate('/')
-
     } catch (err) {
-      setError(
-        err.response?.data?.message || 'Error al iniciar sesión'
-      )
+      setError(err.response?.data?.message || 'Error al iniciar sesión')
       console.log(err.code)
       console.log(err.message)
     } finally {
@@ -57,81 +52,78 @@ const Login = () => {
   }
 
   return (
-    <div className="min-vh-100 d-flex justify-content-center align-items-center bg-light">
+    <>
 
-      <Card className="shadow border-0 p-4" style={{ width: '400px' }}>
+      <Helmet>
+        <title>Login - Mi Tienda</title>
+        <meta name="description" content="Inicia sesión en nuestra aplicación para acceder a todas las funcionalidades." />
+      </Helmet>
 
-        <Card.Body>
+      <div className="min-vh-100 d-flex justify-content-center align-items-center bg-light">
+        <Card className="shadow border-0 p-4" style={{ width: '400px' }}>
+          <Card.Body>
+            <div className="text-center mb-4">
+              <h3 className="fw-bold">Bienvenido</h3>
+              <p className="text-muted">
+                Ingresá tus credenciales para continuar
+              </p>
+            </div>
 
-          <div className="text-center mb-4">
-            <h3 className="fw-bold">Bienvenido</h3>
-            <p className="text-muted">
-              Ingresá tus credenciales para continuar
-            </p>
-          </div>
+            {error && <Alert variant="danger">{error}</Alert>}
 
-          {error && (
-            <Alert variant="danger">
-              {error}
-            </Alert>
-          )}
+            <Form onSubmit={handleSubmit}>
+              <Form.Group className="mb-3">
+                <Form.Label>Correo electrónico</Form.Label>
 
-          <Form onSubmit={handleSubmit}>
+                <Form.Control
+                  type="email"
+                  name="email"
+                  placeholder="nombre@correo.com"
+                  value={credentials.email}
+                  onChange={handleChange}
+                  required
+                />
+              </Form.Group>
 
-            <Form.Group className="mb-3">
-              <Form.Label>Correo electrónico</Form.Label>
+              <Form.Group className="mb-4">
+                <Form.Label>Contraseña</Form.Label>
 
-              <Form.Control
-                type="email"
-                name="email"
-                placeholder="nombre@correo.com"
-                value={credentials.email}
-                onChange={handleChange}
-                required
-              />
-            </Form.Group>
+                <Form.Control
+                  type="password"
+                  name="password"
+                  placeholder="Ingresá tu contraseña"
+                  value={credentials.password}
+                  onChange={handleChange}
+                  required
+                />
+              </Form.Group>
 
-            <Form.Group className="mb-4">
-              <Form.Label>Contraseña</Form.Label>
+              <Button
+                type="submit"
+                variant="primary"
+                className="w-100"
+                disabled={loading}
+              >
+                {loading ? (
+                  <>
+                    <Spinner size="sm" className="me-2" />
+                    Ingresando...
+                  </>
+                ) : (
+                  'Iniciar sesión'
+                )}
+              </Button>
+            </Form>
 
-              <Form.Control
-                type="password"
-                name="password"
-                placeholder="Ingresá tu contraseña"
-                value={credentials.password}
-                onChange={handleChange}
-                required
-              />
-            </Form.Group>
-
-            <Button
-              type="submit"
-              variant="primary"
-              className="w-100"
-              disabled={loading}
-            >
-              {loading ? (
-                <>
-                  <Spinner size="sm" className="me-2" />
-                  Ingresando...
-                </>
-              ) : (
-                'Iniciar sesión'
-              )}
-            </Button>
-
-          </Form>
-
-          <div className="text-center mt-4">
-            <small className="text-muted">
-              ¿No tenes cuenta? <Link to="/register">Registrate aquí</Link>
-            </small>
-          </div>
-
-        </Card.Body>
-      </Card>
-
-    </div>
+            <div className="text-center mt-4">
+              <small className="text-muted">
+                ¿No tenes cuenta? <Link to="/register">Registrate aquí</Link>
+              </small>
+            </div>
+          </Card.Body>
+        </Card>
+      </div>
+    </>
   )
 }
 
